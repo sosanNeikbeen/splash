@@ -54,7 +54,7 @@ const ImageDetails = () => {
                   <List.Item>Photographer: Joe Example</List.Item>
                   <List.Item>Current Photographer Location: Montreal</List.Item>
                   <List.Item>
-                    portfolio_url: <a>https://example.com/</a>
+                    portfolio_url: <a href="">https://example.com/</a>
                   </List.Item>
                   <List.Item>Total Collections: 4383</List.Item>
                   <List.Item>
