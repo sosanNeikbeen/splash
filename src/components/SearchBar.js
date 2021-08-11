@@ -1,28 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useImage } from "../context/ImageContext";
 
-class SearchBar extends React.Component {
-  state = { term: "mac" };
-  onFormSubmit = (event) => {
+const SearchBar = () => {
+  const [term, setTerm] = useState("mac");
+  const { onSearchSubmit } = useImage();
+
+  const onFormSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.term);
+    onSearchSubmit(term);
   };
 
-  render() {
-    return (
-      <div className="ui segment">
-        <form onSubmit={this.onFormSubmit} className="ui form">
-          <div className="field">
-            <label>Image Search</label>
-            <input
-              type="text"
-              value={this.state.term}
-              onChange={(e) => this.setState({ term: e.target.value })}
-            />
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="ui segment">
+      <form onSubmit={onFormSubmit} className="ui form">
+        <div className="field">
+          <label>Image Search</label>
+          <input
+            type="text"
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+          />
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default SearchBar;

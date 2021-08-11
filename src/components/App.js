@@ -1,19 +1,17 @@
 import React from "react";
 import { Route, BrowserRouter } from "react-router-dom";
-import ImageDetails from "./ImageDetails";
-import Home from "../pages/Home";
+import Home from "../pages/home";
+import Image from "../pages/image";
+import Header from "./Header";
 
 const App = () => {
   return (
-    <div className="ui container" style={{ marginTop: "10px" }}>
-      <div>
-        <BrowserRouter>
-          <Route path="/" exact component={Home} />
-          <Route path="/image/details" exact component={ImageDetails} />
-        </BrowserRouter>
-      </div>
-
-      {/* <ImageDetails /> */}
+    <div>
+      <BrowserRouter>
+        <Header />
+        <Route path="/" exact component={Home} />
+        <Route path="/images/:id" exact component={Image} />
+      </BrowserRouter>
     </div>
   );
 };

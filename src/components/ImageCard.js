@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ImageCard.css";
-import { Button } from "semantic-ui-react";
 
 class ImageCard extends React.Component {
   constructor(props) {
@@ -36,9 +35,9 @@ class ImageCard extends React.Component {
         <div className="image-card-overlay">
           <div className="content">
             <div className="center">
-              <Button primary as={Link} to="/image/details">
+              <button primary as={Link} to={`/images/${this.props.image.id}`}>
                 image details
-              </Button>
+              </button>
             </div>
           </div>
         </div>
