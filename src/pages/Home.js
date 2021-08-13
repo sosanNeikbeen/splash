@@ -1,17 +1,10 @@
 import React from "react";
-import { ImageStore } from "../context/ImageContext";
-import SearchBar from "../components/SearchBar";
-import ImageList from "../components/ImageList";
+import HomeContainer from "../components/HomeContainer";
 
-const home = () => {
-  return (
-    <div>
-      <ImageStore>
-        <SearchBar />
-        <ImageList />
-      </ImageStore>
-    </div>
-  );
+import "./home.css";
+
+const home1 = () => {
+  return <HomeContainer />;
 };
 
-export default home;
+export default home1;

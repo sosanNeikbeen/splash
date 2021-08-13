@@ -1,29 +1,30 @@
 import React, { useState } from "react";
-import { useImage } from "../context/ImageContext";
+import { useHistory } from "react-router-dom";
+import { useStateValue } from "../Reducers/StateProvider";
+import { actionTypes } from "../Reducers/reducer";
 
-const SearchBar = () => {
-  const [term, setTerm] = useState("mac");
-  const { onSearchSubmit } = useImage();
-
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-    onSearchSubmit(term);
+function SearchBar() {
+  const [{ term }, dispatch] = useStateValue();
+  const [input, setInput] = useState(term === null ? "" : term);
+  const history = useHistory();
+  const search = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: actionTypes.SET_SEARCH_TERM,
+      term: input,
+    });
+    history.push("/search");
   };
-
   return (
-    <div className="ui segment">
-      <form onSubmit={onFormSubmit} className="ui form">
-        <div className="field">
-          <label>Image Search</label>
-          <input
-            type="text"
-            value={term}
-            onChange={(e) => setTerm(e.target.value)}
-          />
-        </div>
-      </form>
-    </div>
+    <form onSubmit={search}>
+      <input
+        className="input"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Search free high resolution photos"
+      />
+    </form>
   );
-};
+}
 
 export default SearchBar;

@@ -35,8 +35,8 @@ class ImageCard extends React.Component {
         <div className="image-card-overlay">
           <div className="content">
             <div className="center">
-              <button primary as={Link} to={`/images/${this.props.image.id}`}>
-                image details
+              <button className="button is-white">
+                <Link to={`/images/${this.props.image.id}`}>image details</Link>
               </button>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import ImageDetails from "../components/ImageDetails";
+import ImageDetails from "../components/ImageDetails/index";
 
 const image = () => {
   return <ImageDetails />;
