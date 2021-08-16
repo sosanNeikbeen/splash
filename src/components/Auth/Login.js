@@ -5,11 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 
-const SignUp = () => {
+const SignIn = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -17,21 +16,18 @@ const SignUp = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
-    }
-
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/images/:id");
+      await login(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
     } catch (error) {
       setError(error.message);
     }
 
     setLoading(false);
   }
+
   return (
     <section className="hero is-medium ">
       <div className="hero-body">
@@ -43,14 +39,15 @@ const SignUp = () => {
               ) : (
                 ""
               )}
-              <form onSubmit={handleSubmit} class="box">
-                <div class="field">
-                  <label class="label">Email</label>
-                  <div class="control has-icons-left ">
+
+              <form onSubmit={handleSubmit} className="box">
+                <div className="field">
+                  <label className="label">Email</label>
+                  <div className="control has-icons-left">
                     <input
-                      class="input"
+                      className="input"
                       type="email"
-                      placeholder="Email"
+                      placeholder="e.g. alex@example.com"
                       ref={emailRef}
                     />
                     <span class="icon is-small is-left">
@@ -58,11 +55,12 @@ const SignUp = () => {
                     </span>
                   </div>
                 </div>
-                <div class="field">
-                  <label class="label">Password</label>
-                  <div class="control has-icons-left">
+
+                <div className="field">
+                  <label className="label">Password</label>
+                  <div className="control has-icons-left">
                     <input
-                      class="input"
+                      className="input"
                       type="password"
                       placeholder="********"
                       ref={passwordRef}
@@ -72,37 +70,15 @@ const SignUp = () => {
                     </span>
                   </div>
                 </div>
-                <div class="field">
-                  <label class="label">Password Confirmation</label>
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="password"
-                      placeholder="********"
-                      ref={passwordConfirmRef}
-                    />
-                    <span class="icon is-small is-left">
-                      <FontAwesomeIcon className="m-3" icon={faLock} />
-                    </span>
+                <div className="field">
+                  <div className="control">
+                    Dont have an account <Link to="signup">Sign up</Link>
                   </div>
                 </div>
 
-                <div class="field">
-                  <div class="control">
-                    Already have an account <Link to="signin">Sign in</Link>
-                  </div>
-                </div>
-
-                <div class="field is-grouped">
-                  <div class="control">
-                    <button class="button is-info">Submit</button>
-                  </div>
-                  <div class="control">
-                    <button type="submit" class="button is-link is-light">
-                      <Link to="/">Cancel</Link>
-                    </button>
-                  </div>
-                </div>
+                <button type="submit" className="button is-info">
+                  Login
+                </button>
               </form>
             </div>
           </div>
@@ -112,4 +88,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

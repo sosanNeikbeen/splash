@@ -1,29 +1,13 @@
-import React, { useContext, useState, createContext } from "react";
-import unsplash from "../api/unsplash";
+import React, { createContext, useContext, useReducer } from "react";
+export const ImageContext = createContext();
 
-const ImageContext = createContext();
-
-export const ImageStore = ({ children }) => {
-  const [images, setImages] = useState([]);
-
-  const onSearchSubmit = async (term) => {
-    const response = await unsplash.get("/search/photos", {
-      params: { query: term, per_page: 20 },
-    });
-    setImages(response.data.results);
-  };
-
+export const ImageProvider = ({ reducer, initialState, children }) => {
   return (
-    <ImageContext.Provider value={{ images, onSearchSubmit: onSearchSubmit }}>
+    <ImageContext.Provider value={useReducer(reducer, initialState)}>
       {children}
     </ImageContext.Provider>
   );
 };
 
-export const useImage = () => {
-  const context = useContext(ImageContext);
-  if (context === undefined) {
-    throw new Error("Context must be used within a Provider");
-  }
-  return context;
-};
+// hook that allows us to pull info from the data layer
+export const useImageValue = () => useContext(ImageContext);

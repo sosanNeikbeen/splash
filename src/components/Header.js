@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+
+import AuthButtons from "./AuthButtons";
 
 const Header = () => {
   const [isActive, setisActive] = useState(false);
@@ -33,16 +34,7 @@ const Header = () => {
           className={`navbar-menu ${isActive ? "is-active" : ""}`}
         >
           <div className="navbar-end">
-            <span className="navbar-item">
-              <Link to="/signin">
-                <button className="button is-white is-outlined">Login</button>
-              </Link>
-            </span>
-            <span className="navbar-item">
-              <Link to="/signup">
-                <button className="button is-white is-outlined">Sign up</button>
-              </Link>
-            </span>
+            <AuthButtons />
           </div>
         </div>
       </div>

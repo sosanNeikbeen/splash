@@ -1,11 +1,12 @@
 import React from "react";
-import { useStateValue } from "../Reducers/StateProvider";
+import { useImageValue } from "../context/ImageContext";
+import { ToastProvider, useToasts } from "react-toast-notifications";
 import useUnsplashSearch from "../api/data";
 import ImageCard from "./ImageCard";
 import "./ImageList.css";
 
 const ImageList = () => {
-  const [{ term }] = useStateValue();
+  const [{ term }] = useImageValue();
   const { data } = useUnsplashSearch(term);
 
   return (
@@ -14,7 +15,11 @@ const ImageList = () => {
         <div className="image-list pt-5">
           {data
             ? data.map((image) => {
-                return <ImageCard key={image.id} image={image} />;
+                return (
+                  <ToastProvider>
+                    <ImageCard key={image.id} image={image} />
+                  </ToastProvider>
+                );
               })
             : ""}
         </div>

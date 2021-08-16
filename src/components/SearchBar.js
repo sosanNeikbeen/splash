@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useStateValue } from "../Reducers/StateProvider";
+import { useImageValue } from "../context/ImageContext";
 import { actionTypes } from "../Reducers/reducer";
 
 function SearchBar() {
-  const [{ term }, dispatch] = useStateValue();
+  const [{ term }, dispatch] = useImageValue();
   const [input, setInput] = useState(term === null ? "" : term);
   const history = useHistory();
   const search = (e) => {
