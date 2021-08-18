@@ -4,7 +4,7 @@ import { useToasts } from "react-toast-notifications";
 import { useAuth } from "../context/AuthContext";
 import "./ImageCard.css";
 
-const ImageCard = (props) => {
+const ImageCard = ({ image }) => {
   const [spans, setSpans] = useState(0);
   const imageRef = useRef();
   const history = useHistory();
@@ -26,7 +26,7 @@ const ImageCard = (props) => {
   const onButtonClick = (e) => {
     e.preventDefault();
     if (isLoggedIn) {
-      history.push(`/images/${props.image.id}`);
+      history.push(`/images/${image.id}`);
     } else {
       addToast("Please login to see this page", { appearance: "error" });
     }
@@ -37,9 +37,10 @@ const ImageCard = (props) => {
       <img
         className="image-card-shadow"
         ref={imageRef}
-        alt={props.image.description}
-        src={props.image.urls.regular}
+        alt={image.description}
+        src={image.urls.regular}
       ></img>
+
       <div className="image-card-overlay">
         <div className="content">
           <div className="center">

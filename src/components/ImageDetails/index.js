@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import unsplash from "../../api/unsplash";
-import "./ImageDetails.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import Tabs from "../Tabs";
-import Comment from "./Comment";
+import Comments from "./Comments";
 import About from "./About";
+import { saveAs } from "file-saver";
 
 const ImageDetails = () => {
   const [data, setData] = useState({});
+  const [likes, setLikes] = useState(0);
+  const [isDisable, setIsDisable] = useState(false);
   const history = useHistory();
-  var url = window.location.pathname;
-  var id = url.substring(url.lastIndexOf("/") + 1);
+  const url = window.location.pathname;
+  const id = url.substring(url.lastIndexOf("/") + 1);
 
   useEffect(() => {
     const getData = async () => {
@@ -31,13 +33,23 @@ const ImageDetails = () => {
     history.push("/search");
   };
 
-  const comment = () => <Comment />;
+  const comment = () => <Comments imageId={id} />;
   const about = () => <About data={data} />;
 
   const tabs = [
     { label: "Comments", component: comment },
     { label: "About", component: about },
   ];
+
+  const downlaodImage = () => {
+    saveAs(data.urls.regular, "image.jpg");
+  };
+
+  const likeImage = () => {
+    let newCount = likes + 1;
+    setLikes(newCount);
+    setIsDisable(true);
+  };
 
   return (
     <div className="container ">
@@ -56,14 +68,18 @@ const ImageDetails = () => {
             </div>
             <div className="level-right">
               <div className="level-item">
-                <button className="button ">
-                  <span className="icon ">
+                <button
+                  className="button"
+                  onClick={likeImage}
+                  disabled={isDisable}
+                >
+                  <span className={isDisable ? "icon has-text-danger" : "icon"}>
                     <FontAwesomeIcon icon={faHeart} />
                   </span>
                 </button>
               </div>
               <div className="level-item">
-                <button className="button is-info ">
+                <button className="button is-info" onClick={downlaodImage}>
                   <span>Download</span>
                   <span className="icon">
                     <FontAwesomeIcon icon={faDownload} />
@@ -103,7 +119,7 @@ const ImageDetails = () => {
                   <span className="icon">
                     <FontAwesomeIcon icon={faHeart} />
                   </span>
-                  <span className="ml-2">0</span>
+                  <span className="ml-2">{likes}</span>
                 </span>
               </div>
             </div>

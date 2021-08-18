@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import AuthButtons from "./AuthButtons";
 
 const Header = () => {
