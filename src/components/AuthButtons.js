@@ -1,30 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 const AuthButtons = () => {
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const history = useHistory();
   const { currentUser, logout } = useAuth();
   const isLoggedIn = currentUser.isLoggedIn;
 
-  async function handleLogout() {
-    setError("");
+  const handleLogout = async () => {
+    // setError("");
 
     try {
       await logout();
       history.push("/signin");
-    } catch {
-      setError("Failed to log out");
+    } catch (error) {
+      return error;
     }
-  }
+  };
   return (
     <>
       {isLoggedIn ? (
         <span className="navbar-item">
-          <button
-            onClick={handleLogout}
-            className="button is-white is-outlined"
-          >
+          <button onClick={handleLogout} className="button is-info is-outlined">
             Logout
           </button>
         </span>
@@ -32,12 +29,12 @@ const AuthButtons = () => {
         <>
           <span className="navbar-item">
             <Link to="/signin">
-              <button className="button is-white is-outlined">Login</button>
+              <button className="button is-info is-outlined">Login</button>
             </Link>
           </span>
           <span className="navbar-item">
             <Link to="/signup">
-              <button className="button is-white is-outlined">Signup</button>
+              <button className="button is-info is-outlined">Signup</button>
             </Link>
           </span>
         </>

@@ -1,14 +1,14 @@
 import React from "react";
 import ImageList from "../components/ImageList";
-import SearchBar from "../components/SearchBar";
+import SearchHeader from "../components/SearchHeader";
 
-function Search() {
+const Search = () => {
   return (
     <div>
-      <SearchBar />
+      <SearchHeader />
       <ImageList />
     </div>
   );
-}
+};
 
 export default Search;

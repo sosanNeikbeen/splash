@@ -15,6 +15,9 @@ const HomeContainer = () => {
         <div className="container ">
           <div className="columns ">
             <div className="column is-half is-offset-one-quarter">
+              <h1 className="is-size-5 has-text-white">
+                Search free high resolution photos
+              </h1>
               <div className="field">
                 <div className="control">
                   <div className="control has-icons-left">

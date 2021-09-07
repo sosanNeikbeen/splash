@@ -28,7 +28,7 @@ const ImageCard = ({ image }) => {
     if (isLoggedIn) {
       history.push(`/images/${image.id}`);
     } else {
-      addToast("Please login to see this page", { appearance: "error" });
+      addToast("please login to see this page", { appearance: "error" });
     }
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useImageValue } from "../context/ImageContext";
-import { ToastProvider, useToasts } from "react-toast-notifications";
+import { ToastProvider } from "react-toast-notifications";
 import useUnsplashSearch from "../api/data";
 import ImageCard from "./ImageCard";
 import "./ImageList.css";
@@ -10,21 +10,21 @@ const ImageList = () => {
   const { data } = useUnsplashSearch(term);
 
   return (
-    <>
+    <div className="container is-mobile">
       {term && (
         <div className="image-list pt-5">
           {data
             ? data.map((image) => {
                 return (
-                  <ToastProvider>
-                    <ImageCard key={image.id} image={image} />
+                  <ToastProvider key={image.id}>
+                    <ImageCard image={image} />
                   </ToastProvider>
                 );
               })
             : ""}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

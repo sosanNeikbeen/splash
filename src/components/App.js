@@ -21,10 +21,10 @@ const App = () => {
             <ImageProvider initialState={initialState} reducer={reducer}>
               <Route path="/" exact component={Home} />
               <Route path="/search" component={Search} />
+              <Route path="/signin" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/resetpassword" component={PasswordReset} />
             </ImageProvider>
-            <Route path="/signin" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/resetpassword" component={PasswordReset} />
           </AuthProvider>
         </Switch>
       </Router>

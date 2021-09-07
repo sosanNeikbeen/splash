@@ -18,7 +18,7 @@ const Tabs = ({ tabs, className }) => {
               className={i === active ? "is-active" : ""}
               onClick={() => handleOnTabClick(i)}
             >
-              <a>{tab.label}</a>
+              <a href="#/">{tab.label}</a>
             </li>
           ))}
         </ul>

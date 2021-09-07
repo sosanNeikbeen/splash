@@ -13,20 +13,20 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      history.goBack();
     } catch (error) {
       setError(error.message);
     }
 
     setLoading(false);
-  }
+  };
 
   return (
     <section className="hero is-medium ">
@@ -50,7 +50,7 @@ const SignIn = () => {
                       placeholder="e.g. alex@example.com"
                       ref={emailRef}
                     />
-                    <span class="icon is-small is-left">
+                    <span className="icon is-small is-left">
                       <FontAwesomeIcon className="m-3" icon={faEnvelope} />
                     </span>
                   </div>
@@ -65,7 +65,7 @@ const SignIn = () => {
                       placeholder="********"
                       ref={passwordRef}
                     />
-                    <span class="icon is-small is-left">
+                    <span className="icon is-small is-left">
                       <FontAwesomeIcon className="m-3" icon={faLock} />
                     </span>
                   </div>

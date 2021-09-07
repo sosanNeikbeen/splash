@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { firestore } from "../../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
-const Comment = ({ imageId }) => {
+const Comments = ({ imageId }) => {
   const initialFiledValues = {
     imageId: "",
     comment: "",
@@ -11,7 +13,7 @@ const Comment = ({ imageId }) => {
   const [comments, setComments] = useState([]);
 
   const handleInputChange = (e) => {
-    let { name, value } = e.target;
+    let { value } = e.target;
     setvalues({
       ...values,
       comment: value,
@@ -31,52 +33,76 @@ const Comment = ({ imageId }) => {
       comment: "",
     });
   };
-
+  const data = [];
   const fetchComments = async () => {
     const response = firestore
       .collection("comments")
       .where("imageId", "==", imageId);
     const result = await response.get();
-    const data = [];
 
     result.forEach((doc) => {
-      data.push(doc.data());
+      const temp = {
+        commentId: doc.id,
+        ...doc.data(),
+      };
+      data.push(temp);
     });
 
     setComments(data);
   };
 
+  const deleteComment = (id) => {
+    firestore
+      .collection("comments")
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
   useEffect(() => {
     fetchComments();
-  }, [values]);
+  }, [data]);
 
   return (
     <>
-      {comments
-        ? comments.map((cmnt) => {
-            return (
-              <article key={cmnt.imageId} className="media">
-                <figure className="media-left">
-                  <p className="image is-48x48">
-                    <img
-                      alt="user pic"
-                      src="https://bulma.io/images/placeholders/96x96.png"
-                    />
+      {comments ? (
+        comments.map((cmnt) => {
+          return (
+            <article key={cmnt.commentId} className="media">
+              <figure className="media-left">
+                <p className="image is-48x48">
+                  <img
+                    alt="user pic"
+                    src="https://bulma.io/images/placeholders/96x96.png"
+                  />
+                </p>
+              </figure>
+              <div className="media-content">
+                <div className="content">
+                  <p>
+                    <strong>Anonymous</strong>
+                    <br />
+                    {cmnt.comment}
                   </p>
-                </figure>
-                <div className="media-content">
-                  <div className="content">
-                    <p>
-                      <strong>Anonymous</strong>
-                      <br />
-                      {cmnt.comment}
-                    </p>
-                  </div>
                 </div>
-              </article>
-            );
-          })
-        : "no comments found for this pic"}
+              </div>
+              <span onClick={() => deleteComment(cmnt.commentId)}>
+                <FontAwesomeIcon
+                  className="m-3 has-text-info"
+                  icon={faTrashAlt}
+                />
+              </span>
+            </article>
+          );
+        })
+      ) : (
+        <div>no comments found</div>
+      )}
 
       <article className="media">
         <div className="media-content">
@@ -95,7 +121,9 @@ const Comment = ({ imageId }) => {
             <nav className="level">
               <div className="level-left">
                 <div className="level-item">
-                  <button className="button is-info">Submit</button>
+                  <button type="submit" className="button is-info">
+                    Submit
+                  </button>
                 </div>
               </div>
             </nav>
@@ -106,4 +134,4 @@ const Comment = ({ imageId }) => {
   );
 };
 
-export default Comment;
+export default Comments;

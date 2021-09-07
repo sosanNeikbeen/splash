@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import AuthButtons from "./AuthButtons";
+import SearchBar from "./SearchBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const SearchHeader = () => {
   const [isActive, setisActive] = useState(false);
   return (
-    <header className="navbar">
+    <header className="navbar is-black">
       <div className="container">
         <div className="navbar-brand">
           <div className="navbar-item">
-            <p className="is-size-4 has-text-white has-text-weight-semibold">
-              Image Gallery
-            </p>
+            <Link to="/">
+              <button className="button is-black ">
+                <span className="icon">
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                </span>
+                <span>Go back </span>
+              </button>
+            </Link>
           </div>
+          <div className="pt-2">
+            <SearchBar />
+          </div>
+
           <span
             onClick={() => {
               setisActive(!isActive);
@@ -40,4 +53,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default SearchHeader;

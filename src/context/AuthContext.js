@@ -49,8 +49,6 @@ export const AuthProvider = ({ children }) => {
           isLoggedIn: true,
         });
       }
-      console.log(user);
-
       setLoading(false);
     });
 

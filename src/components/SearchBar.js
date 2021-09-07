@@ -21,7 +21,7 @@ function SearchBar() {
         className="input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Search free high resolution photos"
+        placeholder=""
       />
     </form>
   );

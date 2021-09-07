@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarWeek } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,29 @@ import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 const About = ({ data }) => {
-  console.log(data);
+  const [date, setDate] = useState();
+
+  useEffect(() => {
+    const convertDate = () => {
+      let date = new Date(data.created_at);
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let dt = date.getDate();
+
+      if (dt < 10) {
+        dt = "0" + dt;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      const newDate = year + "-" + month + "-" + dt;
+      setDate(newDate);
+    };
+
+    convertDate();
+  }, [date]);
+
   return (
     <aside className="menu">
       <ul className="menu-list">
@@ -21,9 +43,7 @@ const About = ({ data }) => {
           <span className="icon has-text-grey">
             <FontAwesomeIcon icon={faCalendarWeek} />
           </span>
-          <span className="ml-2 has-text-grey">
-            Published on: {data.created_at}
-          </span>
+          <span className="ml-2 has-text-grey">Published on: {date}</span>
         </li>
         <li>
           <span className="icon has-text-grey">
