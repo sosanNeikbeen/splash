@@ -30,6 +30,14 @@ const SignIn = () => {
 
   return (
     <section className="hero is-medium ">
+      <div class="columns pt-6 is-mobile is-centered">
+        <Link to="/">
+          <p className="has-text-weight-semibold has-text-info is-size-1">
+            Splash
+            <br />
+          </p>
+        </Link>
+      </div>
       <div className="hero-body">
         <div className="container ">
           <div className="columns ">

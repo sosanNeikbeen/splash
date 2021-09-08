@@ -64,6 +64,22 @@ const Comments = ({ imageId }) => {
       });
   };
 
+  // const editComment = (id) => {
+  //   firestore
+  //     .collection("comments")
+  //     .doc(id)
+  //     .set({
+  //       imageId: values.imageId,
+  //       comment: values.comment,
+  //     })
+  //     .then(() => {
+  //       console.log("Document successfully updated");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error removing document: ", error);
+  //     });
+  // };
+
   useEffect(() => {
     fetchComments();
   }, [data]);
@@ -97,6 +113,7 @@ const Comments = ({ imageId }) => {
                   icon={faTrashAlt}
                 />
               </span>
+              {/* <span onClick={() => editComment(cmnt.commentId)}>edit</span> */}
             </article>
           );
         })

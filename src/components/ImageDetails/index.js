@@ -14,7 +14,7 @@ import { saveAs } from "file-saver";
 const ImageDetails = () => {
   const [data, setData] = useState({});
   const [likes, setLikes] = useState(0);
-  const [isDisable, setIsDisable] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const history = useHistory();
   const url = window.location.pathname;
   const id = url.substring(url.lastIndexOf("/") + 1);
@@ -46,9 +46,15 @@ const ImageDetails = () => {
   };
 
   const likeImage = () => {
-    let newCount = likes + 1;
+    let newCount;
+    if (!isLiked) {
+      newCount = likes + 1;
+    } else {
+      newCount = likes - 1;
+    }
     setLikes(newCount);
-    setIsDisable(true);
+
+    setIsLiked(!isLiked);
   };
 
   return (
@@ -68,12 +74,8 @@ const ImageDetails = () => {
             </div>
             <div className="level-right">
               <div className="level-item">
-                <button
-                  className="button"
-                  onClick={likeImage}
-                  disabled={isDisable}
-                >
-                  <span className={isDisable ? "icon has-text-danger" : "icon"}>
+                <button className="button" onClick={likeImage}>
+                  <span className={isLiked ? "icon has-text-danger" : "icon"}>
                     <FontAwesomeIcon icon={faHeart} />
                   </span>
                 </button>

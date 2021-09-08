@@ -9,7 +9,7 @@ const Header = () => {
         <div className="navbar-brand">
           <div className="navbar-item">
             <p className="is-size-4 has-text-white has-text-weight-semibold">
-              Image Gallery
+              Splash
             </p>
           </div>
           <span

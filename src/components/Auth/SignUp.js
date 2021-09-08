@@ -25,7 +25,7 @@ const SignUp = () => {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/search");
+      history.push("/images/:id");
     } catch (error) {
       setError(error.message);
     }
